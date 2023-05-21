@@ -6,11 +6,11 @@ def simpleNetwork():
     neurons = [[.5,.1,.7],[.3,.4,-.2],[0,.1,.3]]
     # we have the associated bias for each neuron
     biases = [3,1,2]
-    # initalie outputs arrays
+    # initalize outputs arrays
     outputs = []
     # loop through all of our weights
     for weights, bias in zip(neurons,biases):
-    # refresh neuron
+    # reset product for new neuron
         product = 0
     # get linear combination of weights and input
         for weight, inp in zip(weights,inputs):
@@ -24,20 +24,17 @@ def batchNetwork():
     import numpy as np
     # create a batch of inputs
     inputs = [[1,5,7],[2,1,9],[3,3,4]]
-
-    inputsMatrix = np.array(inputs)
-
     # create corresponding weights
     weights = [[.1,.2,.3],[.6,.5,.4],[.1,.2,.9]]
-
-    weightsMatrix = np.array(weights)
-
     # create corresponding bias
     biases = [5,2,2]
 
-    outputs = np.dot(inputsMatrix,weightsMatrix.T)+biases
-    print(outputs)
+    # turn lists into numpy array
+    inputsMatrix = np.array(inputs)
+    weightsMatrix = np.array(weights)
 
+    # use matrix multiplication + bias to get output matrix
+    outputs = np.dot(inputsMatrix,weightsMatrix.T)+biases
 
 
 
