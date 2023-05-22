@@ -1,3 +1,5 @@
+import numpy as np
+
 def simpleNetwork():
     # we have these inputs for our model
     inputs = [1,3,4]
@@ -13,15 +15,14 @@ def simpleNetwork():
     # reset product for new neuron
         product = 0
     # get linear combination of weights and input
-        for weight, inp in zip(weights,inputs):
-            product += weight * inp
+        for weight, input_ in zip(weights,inputs):
+            product += weight * input_
         # add it to the output list
         outputs.append(product+bias)
     # check our output list
     print(outputs)
 
 def batchNetwork():
-    import numpy as np
     # create a batch of inputs
     inputs = [[1,5,7],[2,1,9],[3,3,4]]
     # create corresponding weights
@@ -37,6 +38,12 @@ def batchNetwork():
     outputs = np.dot(inputsMatrix,weightsMatrix.T)+biases
 
 
+class denseLayer:
+    def __init__(self, number_of_inputs, number_of_neurons):
+        #creates matrix of size (inputs,neurons) with random values
+        self.weights = .01 * np.random.randn(number_of_inputs,number_of_neurons)
+        #creates a (1,neurons) vector for biases
+        self.biases = np.zeros((1,number_of_neurons))
 
 
 
