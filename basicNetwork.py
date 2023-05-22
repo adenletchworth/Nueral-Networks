@@ -38,14 +38,28 @@ def batchNetwork():
     outputs = np.dot(inputsMatrix,weightsMatrix.T)+biases
 
 
-class denseLayer:
+class Dense_Layer:
     def __init__(self, number_of_inputs, number_of_neurons):
         #creates matrix of size (inputs,neurons) with random values
         self.weights = .01 * np.random.randn(number_of_inputs,number_of_neurons)
         #creates a (1,neurons) vector for biases
         self.biases = np.zeros((1,number_of_neurons))
 
+    def foward(self, inputs):
+        #calculates dot product of inputs and weights and adds biases
+        self.output = np.dot(inputs,self.weights)+self.biases
 
+#Testing our Dense Layer
+import nnfs
+from nnfs.datasets import spiral_data
+#initializes random weights and zero biases
+nnfs.init()
+#gives us a random sample of data
+X,y = spiral_data(100,3)
+#Initalize dense layer with 2 inputs and 3 neurons
+first_Layer = Dense_Layer(2,3)
+#Calculate dot product + bias of random sample X and first_Layer
+first_Layer.foward(X)
 
-    
-
+#grab a few outputs
+print(first_Layer.output[:3])
