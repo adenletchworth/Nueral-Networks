@@ -49,6 +49,15 @@ class Dense_Layer:
         #calculates dot product of inputs and weights and adds biases
         self.output = np.dot(inputs,self.weights)+self.biases
 
+class RELU:
+    def foward(self,inputs):
+        self.output = np.maximum(0,inputs)
+
+
+
+
+
+
 #Testing our Dense Layer
 import nnfs
 from nnfs.datasets import spiral_data
@@ -61,5 +70,8 @@ first_Layer = Dense_Layer(2,3)
 #Calculate dot product + bias of random sample X and first_Layer
 first_Layer.foward(X)
 
+activation = RELU()
+
+activation.foward(first_Layer.output)
 #grab a few outputs
-print(first_Layer.output[:3])
+print(activation.output[:3])
