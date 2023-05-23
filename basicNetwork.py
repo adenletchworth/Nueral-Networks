@@ -53,6 +53,14 @@ class RELU:
     def foward(self,inputs):
         self.output = np.maximum(0,inputs)
 
+class SoftMax:
+    def foward(self,inputs):
+        exp_inputs = np.exp(inputs-np.max(inputs,axis=1,keepdims=True))
+
+        prob_inputs = (exp_inputs / np.sum(exp_inputs,axis=1,keepdims=True))
+
+        self.output = prob_inputs
+
 
 
 
@@ -65,13 +73,28 @@ from nnfs.datasets import spiral_data
 nnfs.init()
 #gives us a random sample of data
 X,y = spiral_data(100,3)
-#Initalize dense layer with 2 inputs and 3 neurons
+
+#Initalize dense layers 
 first_Layer = Dense_Layer(2,3)
+second_Layer = Dense_Layer(3,3)
+
 #Calculate dot product + bias of random sample X and first_Layer
 first_Layer.foward(X)
 
-activation = RELU()
+# Initialize activation layers
+activation_RELU = RELU()
+activation_SoftMax = SoftMax()
 
-activation.foward(first_Layer.output)
-#grab a few outputs
-print(activation.output[:3])
+# use RELU on first dense layer inputs
+activation_RELU.foward(first_Layer.output)
+
+# pass to next dense layer
+second_Layer.foward(activation_RELU.output)
+
+# run result through softmax activation function
+activation_SoftMax.foward(second_Layer.output)
+
+#grab a few outptus
+print(activation_SoftMax.output[:5])
+
+
